@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Web App With AngularJS</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+    <style type="text/css">
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function EmailController($scope) {
+            $scope.isPopupVisible = false;
+
+            $scope.showPopup = function (email) {
+                $scope.isPopupVisible = true;
+                $scope.selectedEmail = email;
+            };
+
+            $scope.emails = [
+                   {
+                       from: 'John',
+                       Subject: 'I love Angular',
+                       date: 'Jan 1',
+                       body: 'hello world!'
+                   },
+
+                   {
+                       from: 'Jack',
+                       Subject: 'Angular and I are just friends',
+                       date: 'Feb 15',
+                       body: 'Just kidding'
+                   },
+
+                   {
+                       from: 'Ember',
+                       Subject: 'I hate you Angular',
+                       date: 'Dec 8',
+                       body: 'wassup dude'
+                   }
+            ];
+        }
+    </script>
+</head>
+<body>
+    <div class="container" ng-app ng-controller="EmailController">
+        <table class="table table-bordered table-condensed">
+            <tbody ng-init="emails=[
+                   {from: 'John', Subject: 'I love Angular', date: 'Jan 1'},
+                   {from: 'Jack', Subject: 'Angular and I are just friends', date: 'Feb 15'},
+                   {from: 'Ember', Subject: 'I hate you Angular', date: 'Dec 8'}
+                   ]">
+                <tr ng-repeat="email in emails" ng-click="showPopup(email)">
+                    <td>{{email.from}}</td>
+                    <td>{{email.Subject}}</td>
+                    <td>{{email.date}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal" ng-show="isPopupVisible">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="closePopup()">X</button>
+                <h3>{{selectedEmail.subject}}</h3>
+            </div>
+            <div class="modal-body">
+                <strong>From:</strong> {{selectedEmail.from}} <br />
+                <strong>Date:</strong> {{selectedEmail.date}} <br />
+                <br />
+                <p>
+                    Hey You, <br />
+                    <br />
+                    How are you doing? <br />
+                    <br />
+                    Sincerely<br />
+                    Your Bro
+                </p>
+            </div> <br />
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" ng-click="closePopup()">Close</a>
+            </div>
+            <div classs="modal">
+                <div class="modal-header">
+                    <button type="button" class="close">X</button>
+                    <h3>Compose Email</h3>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="text" placeholder="To" style="width:95%;"><br />
+                        <input type="text" placeholder="Subject" style="width:95%;"><br />
+                        <textarea style="width:95%;" rows="10"></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn">Close</a>
+                    <a href="#" class="btn btn-primary">Send</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
