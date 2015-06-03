@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
     <title>Email Web App With AngularJS</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -15,9 +15,13 @@
         function EmailController($scope) {
             $scope.isPopupVisible = false;
 
-            $scope.showPopup = function (email) {
+            $scope.showPopup = function() {
                 $scope.isPopupVisible = true;
                 $scope.selectedEmail = email;
+            };
+
+            $scope.closePopup = function(){
+                $scope.isPopupvisible= false;          
             };
 
             $scope.emails = [
@@ -60,9 +64,10 @@
                 </tr>
             </tbody>
         </table>
+        <br />
         <div class="modal" ng-show="isPopupVisible">
             <div class="modal-header">
-                <button type="button" class="close" ng-click="closePopup()">X</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closePopup()">X</button>
                 <h3>{{selectedEmail.subject}}</h3>
             </div>
             <div class="modal-body">
